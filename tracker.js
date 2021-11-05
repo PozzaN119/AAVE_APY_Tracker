@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer');
 
 const fs = require("fs");
 
+const filePath = "F:\\@Perso\\@Dev\\AAVE_APY_Tracker\\apy.json"
+
 let date_ob = new Date();
 
 (async () => {
@@ -27,13 +29,13 @@ let date_ob = new Date();
     // {
     //  date:[despositapy,despositbonus,borrowingapy,borrowingbonus]
     // }
-    fs.readFile('apy.json', (err, data) => {
+    fs.readFile(filePath, (err, data) => {
         if (err) throw err;
         let apyData = JSON.parse(data);
         apyData[("0" + date_ob.getDate()).slice(-2) + "-" + ("0" + (date_ob.getMonth() + 1)).slice(-2) + "-" + date_ob.getFullYear() + " " + date_ob.getHours() + ":" + date_ob.getMinutes() + ":" + date_ob.getSeconds()] = apysvalue;
-        console.log(apyData);
+        //console.log(apyData);
         let datafinal = JSON.stringify(apyData, null, 2);
-        fs.writeFile('apy.json', datafinal, (err) => {
+        fs.writeFile(filePath, datafinal, (err) => {
             if (err) throw err;
         });
     });
